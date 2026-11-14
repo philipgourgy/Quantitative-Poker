@@ -48,6 +48,27 @@ Simulated across independent 200-hand careers starting with a $1,000 bankroll ag
 **Key Takeaway:** Because Monte Carlo equity estimates contain finite-sample estimation variance, Full Kelly systematically over-bets perceived edges—leading to severe peak-to-trough drawdowns (`96.4%`) and near-total ruin in worst-case scenarios. Scaling down to **Quarter-Kelly** cuts drawdown nearly in half (`50.8%`), increases risk-adjusted return (`0.137` per-hand Sharpe), and preserves positive tail profitability (`+$1,178.06` $\text{CVaR}_{0.95}$).
 
 ---
+## Connections to Quantitative Finance
+
+Each component of this engine maps directly onto an institutional quantitative trading and portfolio management problem:
+
+| Poker Engine Module | Quantitative Finance & Econometrics Parallel |
+| :--- | :--- |
+| **Monte Carlo Equity Engine (`src/mc_simulation.py`)** | **Derivative Pricing under Uncertainty:** Estimates fair terminal payoff $\mathbb{E}[\mathbb{I}(\text{Win})]$ across unseen state paths via Monte Carlo integration, bounded by Central Limit Theorem standard errors. |
+| **Bayesian Range Updater (`src/bayesian_update.py`)** | **Order-Flow Toxicity & Discrete Choice Econometrics:** Models actions via McFadden's random utility logit likelihood and applies Bayes' Theorem to infer hidden counterparty information from trade/bet sizing. |
+| **Unsupervised Opponent Profiler (`src/profiler.py`)** | **Market Regime & Counterparty Classification:** Segments counterparties into behavioral regimes (*Nit*, *TAG*, *Maniac*) via standardized K-Means clustering—analogous to distinguishing informed institutional flow from retail noise flow. |
+| **Fractional Kelly & Risk Engine (`src/risk_management.py`)** | **Optimal Capital Allocation & Tail-Risk Control:** Sizes positions via Fractional Kelly ($0.25 f^*$) to mitigate parameter estimation error, evaluated via Sharpe Ratio, Maximum Drawdown (MDD), and 95% Conditional Value at Risk ($\text{CVaR}_{0.95}$). |
+
+---
+
+## Modeling Assumptions & Limitations
+
+To keep the decision loop computationally tractable and focused on probabilistic inference and capital allocation, the current engine makes two structural simplifications:
+
+1. **Terminal Showdown Valuation (No Fold Equity):** Decisions are evaluated using all-in showdown equity across a full 5-card board runout, treating each hand like a European-style terminal payoff contract rather than accounting for immediate fold equity ($\text{EV} = P(\text{Fold}) \cdot \text{Pot} + (1 - P(\text{Fold})) \cdot \text{Showdown EV}$).
+2. **Single-Node Action Abstraction:** Future betting streets (flop, turn, river) are compressed into a single decision step rather than solved as a multi-street sequential game tree (such as Counterfactual Regret Minimization / CFR).
+
+**Future Extensions:** Incorporating multi-street sequential updates across post-flop textures and modeling opponent fold-to-raise elasticities would generalize the agent from a static showdown-equity pricer into a full dynamic subgame solver.
 
 ## Repository Structure
 
