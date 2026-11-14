@@ -61,7 +61,7 @@ $$\text{MDD} = \max_{t \in [0, T]} \left( \frac{\text{Peak}_t - B_t}{\text{Peak}
 3. **95% Conditional Value at Risk — $\text{CVaR}_{0.95}$ (`+$1,178.06` vs. `-$965.68`)**
    Measures expected terminal profit/loss in the worst 5% of simulated careers (Expected Shortfall):
 
-$$\text{CVaR}_{0.95} = \mathbb{E}\big[\text{PnL}_T \;\big|\; \text{PnL}_T \le \text{VaR}_{0.95}\big]$$
+$$\text{CVaR}_{0.95} = \mathbb{E}\left[\text{PnL}_T \mid \text{PnL}_T \le \text{VaR}_{0.95}\right]$$
 
    - **Left-Tail Resilience:** In the worst 5% tail scenarios on a \$1,000 starting bankroll, Full Kelly loses nearly the entire bankroll (**`-$965.68`**), whereas Quarter-Kelly remains solidly profitable (**`+$1,178.06`**) even in adverse downswings.
      
