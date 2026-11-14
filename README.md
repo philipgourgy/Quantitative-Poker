@@ -91,6 +91,6 @@ bayesian-poker-engine/
 │   ├── test_bayesian_update.py
 │   ├── test_profiler.py
 │   └── test_risk_management.py
-├── pytest.ini
+├── README.md
 ├── requirements.txt
-└── README.md
+└── pytest.ini
