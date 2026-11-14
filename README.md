@@ -39,6 +39,28 @@ Simulated across independent 200-hand careers starting with a $1,000 bankroll ag
 | **Full Kelly ($f^* = 1.00$)** | `0.103` | `1.46` | `96.4%` | `-$965.68` |
 | **Quarter Kelly ($f^* = 0.25$)** | **`0.137`** | **`1.94`** | **`50.8%`** | **`+$1,178.06`** |
 
+---
+
+### Interpreting the Portfolio & Risk Metrics
+
+1. **200-Hand Session Sharpe Ratio (`1.94` vs. `1.46`)**
+   Assuming independent hand returns $r_t = \frac{B_t - B_{t-1}}{B_{t-1}}$ across a $T = 200$-hand session, expected cumulative return scales linearly with $T$ while return volatility scales with $\sqrt{T}$:
+   $$\text{Sharpe}_{200} = \text{Sharpe}_{\text{per-hand}} \times \sqrt{200}$$
+   - **Risk-Adjusted Efficiency:** Although Quarter-Kelly wagers $4\times$ less per hand than Full Kelly, its return-to-volatility ratio is ~33% higher because avoiding over-bets under Monte Carlo equity estimation noise prevents compounding drawdowns from inflating $\sigma$.
+   - **Session Win Probability:** Under approximate normality, a `1.94` session Sharpe places expected 200-hand profit nearly 2 standard deviations above zero ($\Phi(1.94) \approx 97.4\%$ probability of ending profitable, vs. $\Phi(1.46) \approx 92.8\%$ for Full Kelly).
+
+2. **Average Maximum Drawdown — MDD (`50.8%` vs. `96.4%`)**
+   Measures the largest peak-to-trough percentage drop in bankroll over a 200-hand career:
+   $$\text{MDD} = \max_{t \in [0, T]} \left( \frac{\text{Peak}_t - B_t}{\text{Peak}_t} \right)$$
+   - **Ruin Exposure:** Because finite-sample Monte Carlo equity estimates carry estimation variance[cite: 16], Full Kelly systematically over-bets perceived edges—resulting in an average peak-to-trough collapse of **`96.4%`** (virtual bankruptcy). Quarter-Kelly dampens parameter uncertainty[cite: 17], cutting average drawdown nearly in half (**`50.8%`**).
+
+3. **95% Conditional Value at Risk — $\text{CVaR}_{0.95}$ (`+$1,178.06` vs. `-$965.68`)**
+   Measures expected terminal profit/loss in the worst $5\%$ of simulated careers (Expected Shortfall):
+   $$\text{CVaR}_{0.95} = \mathbb{E}\big[\text{PnL}_T \;\big|\; \text{PnL}_T \le \text{VaR}_{0.95}\big]$$
+   - **Left-Tail Resilience:** In the worst $5\%$ tail scenarios on a $\$1{,}000$ starting bankroll, Full Kelly loses nearly the entire bankroll (**`-$965.68`**), whereas Quarter-Kelly remains solidly profitable (**`+$1,178.06`**) even in adverse downswings.
+
+---
+
 ### Bankroll Trajectories
 
 | Full Kelly ($f^* = 1.0$) | Quarter Kelly ($f^* = 0.25$) |
