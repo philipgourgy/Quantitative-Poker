@@ -221,3 +221,6 @@ def test_evaluate_risk_metrics_exact_math():
   assert np.isclose(sharpe, expected_sharpe)
   assert np.isclose(avg_mdd, expected_mdd)
   assert np.isclose(cvar_95, expected_cvar)
+   
+if __name__ == "__main__":
+  pytest.main([__file__, "-v"])
