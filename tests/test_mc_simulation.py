@@ -165,4 +165,6 @@ def test_invalid_hand_inputs():
     # 2. Card value out of bounds [0, 51] (list.remove raises ValueError)
     with pytest.raises(ValueError):
         equity(hero=[12, 99], n=10, visual=False)
+if __name__ == "__main__":
+  pytest.main([__file__, "-v"])
 
