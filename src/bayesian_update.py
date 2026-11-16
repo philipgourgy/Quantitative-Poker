@@ -65,8 +65,8 @@ def bayesian(bet_size, pot_size, alpha):
     return prior
   if alpha == 0.05: 
      alpha = 0.051
-  bluff_rate = (bet_size / (pot_size + 2 * bet_size)) * 0.10
-  odds = (1.0 - bluff_rate) / bluff_rate
+  gto_bluff_rate = (bet_size / (pot_size + 2 * bet_size)) * 0.10
+  odds = (1.0 - gto_bluff_rate) / gto_bluff_rate
   beta = np.log(odds) / (alpha - 0.05)
 
   bet_prob = 1.0 / (1.0 + np.exp(-beta * (S - alpha)))
