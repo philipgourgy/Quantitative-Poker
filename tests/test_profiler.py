@@ -31,6 +31,9 @@ def test_kmeans_separates_distinct_clusters():
 
   centroids, labels = kmeans(X, k=3, iterations=100)
 
+if __name__ == "__main__":
+  pytest.main([__file__, "-v"])
+
   # Each contiguous block of 20 points must share a single unique cluster label
   assert len(set(labels[:20])) == 1
   assert len(set(labels[20:40])) == 1
