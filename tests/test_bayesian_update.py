@@ -227,4 +227,6 @@ def test_bayesian_equity_blocked_bucket_redraw():
     # Must smoothly fall through to Decile 8 and compute AA vs KK (~82% equity)
     eq = bayesian_update.bayesian_equity(hero, posterior, custom_deciles, n=300)
     assert 0.75 <= eq <= 0.90, f"Expected AA vs KK fallback equity ~0.82, got {eq}"
-
+   
+if __name__ == "__main__":
+  pytest.main([__file__, "-v"])
