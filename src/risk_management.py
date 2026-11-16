@@ -140,28 +140,28 @@ def evaluate_risk_metrics(paths):
 
   return sharpe, avg_mdd, cvar_95
 
-
-full_kelly = []
-quarter_kelly = []
-
-for _ in range(10):
-  full_kelly.append(simulation(profiler_state, deciles, n_hands=200, kelly_fraction=1.0))
-  quarter_kelly.append(simulation(profiler_state, deciles, n_hands=200, kelly_fraction=0.25))
-
-sharpe, mdd, cvar = evaluate_risk_metrics(full_kelly)
-print(f"Full Kelly -> Sharpe: {sharpe:.3f} | Max Drawdown: {mdd*100:.1f}% | CVaR 95%: ${cvar:.2f}")
-for career in full_kelly:
-  plt.plot(career, alpha=0.4)
-plt.title("Full Kelly (1.0)")
-plt.xlabel("Hands")
-plt.ylabel("Bankroll ($)")
-plt.show()
-
-sharpe, mdd, cvar = evaluate_risk_metrics(quarter_kelly)
-print(f"Quarter Kelly -> Sharpe: {sharpe:.3f} | Max Drawdown: {mdd*100:.1f}% | CVaR 95%: ${cvar:.2f}")
-for career in quarter_kelly:
-  plt.plot(career, alpha=0.4)
-plt.title("Quarter Kelly (0.25)")
-plt.xlabel("Hands")
-plt.ylabel("Bankroll ($)")
-plt.show()
+if __name__ == "__main__":
+    full_kelly = []
+    quarter_kelly = []
+    
+    for _ in range(10):
+      full_kelly.append(simulation(profiler_state, deciles, n_hands=200, kelly_fraction=1.0))
+      quarter_kelly.append(simulation(profiler_state, deciles, n_hands=200, kelly_fraction=0.25))
+    
+    sharpe, mdd, cvar = evaluate_risk_metrics(full_kelly)
+    print(f"Full Kelly -> Sharpe: {sharpe:.3f} | Max Drawdown: {mdd*100:.1f}% | CVaR 95%: ${cvar:.2f}")
+    for career in full_kelly:
+      plt.plot(career, alpha=0.4)
+    plt.title("Full Kelly (1.0)")
+    plt.xlabel("Hands")
+    plt.ylabel("Bankroll ($)")
+    plt.show()
+    
+    sharpe, mdd, cvar = evaluate_risk_metrics(quarter_kelly)
+    print(f"Quarter Kelly -> Sharpe: {sharpe:.3f} | Max Drawdown: {mdd*100:.1f}% | CVaR 95%: ${cvar:.2f}")
+    for career in quarter_kelly:
+      plt.plot(career, alpha=0.4)
+    plt.title("Quarter Kelly (0.25)")
+    plt.xlabel("Hands")
+    plt.ylabel("Bankroll ($)")
+    plt.show()
