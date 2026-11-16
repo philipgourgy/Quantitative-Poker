@@ -169,3 +169,6 @@ def test_winning_hand_return_values():
     res = winning_hand(deck[:2], deck[2:4], deck[4:9])
     outcomes.add(res)
   assert outcomes.issubset({-1, 0, 1})
+   
+if __name__ == "__main__":
+  pytest.main([__file__, "-v"])
